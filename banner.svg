@@ -1,0 +1,254 @@
+<svg width="900" height="400" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Noise filter for texture -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    
+    <!-- Scanline pattern for CRT effect -->
+    <pattern id="scanlines" patternUnits="userSpaceOnUse" width="4" height="4">
+      <line x1="0" y1="0" x2="4" y2="0" stroke="rgba(255,215,0,0.03)" stroke-width="1"/>
+    </pattern>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Background gradients -->
+    <linearGradient id="bgGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="50%" stop-color="#1a1500"/>
+      <stop offset="100%" stop-color="#0d0800"/>
+    </linearGradient>
+    
+    <linearGradient id="bgGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffef5"/>
+      <stop offset="50%" stop-color="#fff8e0"/>
+      <stop offset="100%" stop-color="#fffacd"/>
+    </linearGradient>
+    
+    <!-- Animated pixel bar gradient -->
+    <linearGradient id="pixelBarGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffd700">
+        <animate attributeName="stop-color" values="#ffd700;#ffcc00;#ffd700" dur="2s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#ffcc00">
+        <animate attributeName="stop-color" values="#ffcc00;#ffd700;#ffcc00" dur="2s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+  </defs>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+    
+    /* Dark mode (default) */
+    .bg-fill { fill: url(#bgGradientDark); }
+    .noise-overlay { fill: rgba(255,215,0,0.02); }
+    .menu-bar { fill: rgba(255,215,0,0.15); stroke: rgba(255,215,0,0.3); }
+    .pixel-dot { fill: #ffd700; }
+    .menu-text { fill: #ffd700; }
+    .link-bg { fill: rgba(255,215,0,0.1); stroke: rgba(255,215,0,0.2); }
+    .link-text { fill: #fffacd; }
+    .name-text { fill: #ffd700; }
+    .location-text { fill: rgba(255,250,205,0.6); }
+    .tagline-text { fill: #fffacd; }
+    .grid-pixel { fill: rgba(255,215,0,0.3); }
+    .scanlines { fill: url(#scanlines); }
+    
+    /* Light mode */
+    @media (prefers-color-scheme: light) {
+      .bg-fill { fill: url(#bgGradientLight); }
+      .noise-overlay { fill: rgba(184,134,11,0.02); }
+      .menu-bar { fill: rgba(184,134,11,0.15); stroke: rgba(184,134,11,0.3); }
+      .pixel-dot { fill: #b8860b; }
+      .menu-text { fill: #b8860b; }
+      .link-bg { fill: rgba(184,134,11,0.1); stroke: rgba(184,134,11,0.2); }
+      .link-text { fill: #1a1a1a; }
+      .name-text { fill: #b8860b; }
+      .location-text { fill: rgba(26,26,26,0.6); }
+      .tagline-text { fill: #1a1a1a; }
+      .grid-pixel { fill: rgba(184,134,11,0.2); }
+      .scanlines { fill: transparent; }
+    }
+    
+    /* Hover effects */
+    .nav-link { transition: all 0.2s ease; }
+    .nav-link:hover { transform: scale(1.05); }
+    .nav-link:hover .link-bg { fill: rgba(255,215,0,0.25); }
+    .nav-link:hover .link-text { fill: #ffd700; }
+    
+    @media (prefers-color-scheme: light) {
+      .nav-link:hover .link-bg { fill: rgba(184,134,11,0.25); }
+      .nav-link:hover .link-text { fill: #b8860b; }
+    }
+    
+    /* Glitch animation for menu bar */
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.95; }
+      75% { opacity: 0.98; }
+    }
+    
+    .menu-bar { animation: flicker 3s infinite; }
+    
+    /* Breathing animation for pixel grid */
+    @keyframes breathe {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.5; }
+    }
+    
+    .grid-pixel { animation: breathe 4s infinite; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg-fill" width="100%" height="100%"/>
+  
+  <!-- Noise overlay -->
+  <rect class="noise-overlay" width="100%" height="100%" filter="url(#noise)"/>
+  
+  <!-- Scanlines overlay -->
+  <rect class="scanlines" width="100%" height="100%"/>
+  
+  <!-- Menu Bar -->
+  <g transform="translate(20, 20)">
+    <rect class="menu-bar" x="0" y="0" width="860" height="40" rx="4" stroke-width="1"/>
+    
+    <!-- Pixel dots -->
+    <rect class="pixel-dot" x="12" y="16" width="8" height="8" rx="1"/>
+    <rect class="pixel-dot" x="24" y="16" width="8" height="8" rx="1"/>
+    <rect class="pixel-dot" x="36" y="16" width="8" height="8" rx="1"/>
+    
+    <!-- Menu text -->
+    <text class="menu-text" x="56" y="26" font-family="JetBrains Mono, monospace" font-size="12" font-weight="bold" letter-spacing="2">MENU</text>
+    
+    <!-- Navigation Links -->
+    <a href="https://www.linkedin.com/in/aneleldho" target="_blank" class="nav-link">
+      <rect class="link-bg" x="560" y="8" width="70" height="24" rx="3" stroke-width="1"/>
+      <text class="link-text" x="575" y="24" font-family="JetBrains Mono, monospace" font-size="10">LinkedIn →</text>
+    </a>
+    
+    <a href="https://x.com/aneleldho_eth" target="_blank" class="nav-link">
+      <rect class="link-bg" x="640" y="8" width="45" height="24" rx="3" stroke-width="1"/>
+      <text class="link-text" x="655" y="24" font-family="JetBrains Mono, monospace" font-size="10">X →</text>
+    </a>
+    
+    <a href="https://instagram.com/a9.el_" target="_blank" class="nav-link">
+      <rect class="link-bg" x="695" y="8" width="75" height="24" rx="3" stroke-width="1"/>
+      <text class="link-text" x="710" y="24" font-family="JetBrains Mono, monospace" font-size="10">Instagram →</text>
+    </a>
+    
+    <a href="https://github.com/aneleldho06" target="_blank" class="nav-link">
+      <rect class="link-bg" x="780" y="8" width="65" height="24" rx="3" stroke-width="1"/>
+      <text class="link-text" x="795" y="24" font-family="JetBrains Mono, monospace" font-size="10">GitHub →</text>
+    </a>
+  </g>
+  
+  <!-- Main Content -->
+  <g transform="translate(450, 200)">
+    <!-- Name -->
+    <text class="name-text" x="0" y="0" font-family="JetBrains Mono, monospace" font-size="42" font-weight="bold" text-anchor="middle" letter-spacing="4" filter="url(#glow)">ANEL ELDHO</text>
+    
+    <!-- Location -->
+    <text class="location-text" x="0" y="35" font-family="JetBrains Mono, monospace" font-size="14" text-anchor="middle" letter-spacing="3">KERALA, INDIA</text>
+    
+    <!-- Tagline -->
+    <text class="tagline-text" x="0" y="70" font-family="JetBrains Mono, monospace" font-size="14" text-anchor="middle" opacity="0.9">
+      <tspan x="0" dy="0">A learner, explorer, and a builder-in-progress —</tspan>
+      <tspan x="0" dy="20">recently won my first hackathon (4th prize) and hungry to grow</tspan>
+    </text>
+  </g>
+  
+  <!-- Bottom Pixel Grid -->
+  <g transform="translate(150, 340)">
+    <!-- Row of animated pixels -->
+    <rect class="grid-pixel" x="0" y="0" width="10" height="10" rx="1" style="animation-delay: 0s"/>
+    <rect class="grid-pixel" x="15" y="0" width="10" height="10" rx="1" style="animation-delay: 0.1s"/>
+    <rect class="grid-pixel" x="30" y="0" width="10" height="10" rx="1" style="animation-delay: 0.2s"/>
+    <rect class="grid-pixel" x="45" y="0" width="10" height="10" rx="1" style="animation-delay: 0.3s"/>
+    <rect class="grid-pixel" x="60" y="0" width="10" height="10" rx="1" style="animation-delay: 0.4s"/>
+    <rect class="grid-pixel" x="75" y="0" width="10" height="10" rx="1" style="animation-delay: 0.5s"/>
+    <rect class="grid-pixel" x="90" y="0" width="10" height="10" rx="1" style="animation-delay: 0.6s"/>
+    <rect class="grid-pixel" x="105" y="0" width="10" height="10" rx="1" style="animation-delay: 0.7s"/>
+    <rect class="grid-pixel" x="120" y="0" width="10" height="10" rx="1" style="animation-delay: 0.8s"/>
+    <rect class="grid-pixel" x="135" y="0" width="10" height="10" rx="1" style="animation-delay: 0.9s"/>
+    <rect class="grid-pixel" x="150" y="0" width="10" height="10" rx="1" style="animation-delay: 1s"/>
+    <rect class="grid-pixel" x="165" y="0" width="10" height="10" rx="1" style="animation-delay: 1.1s"/>
+    <rect class="grid-pixel" x="180" y="0" width="10" height="10" rx="1" style="animation-delay: 1.2s"/>
+    <rect class="grid-pixel" x="195" y="0" width="10" height="10" rx="1" style="animation-delay: 1.3s"/>
+    <rect class="grid-pixel" x="210" y="0" width="10" height="10" rx="1" style="animation-delay: 1.4s"/>
+    <rect class="grid-pixel" x="225" y="0" width="10" height="10" rx="1" style="animation-delay: 1.5s"/>
+    <rect class="grid-pixel" x="240" y="0" width="10" height="10" rx="1" style="animation-delay: 1.6s"/>
+    <rect class="grid-pixel" x="255" y="0" width="10" height="10" rx="1" style="animation-delay: 1.7s"/>
+    <rect class="grid-pixel" x="270" y="0" width="10" height="10" rx="1" style="animation-delay: 1.8s"/>
+    <rect class="grid-pixel" x="285" y="0" width="10" height="10" rx="1" style="animation-delay: 1.9s"/>
+    <rect class="grid-pixel" x="300" y="0" width="10" height="10" rx="1" style="animation-delay: 2s"/>
+    <rect class="grid-pixel" x="315" y="0" width="10" height="10" rx="1" style="animation-delay: 2.1s"/>
+    <rect class="grid-pixel" x="330" y="0" width="10" height="10" rx="1" style="animation-delay: 2.2s"/>
+    <rect class="grid-pixel" x="345" y="0" width="10" height="10" rx="1" style="animation-delay: 2.3s"/>
+    <rect class="grid-pixel" x="360" y="0" width="10" height="10" rx="1" style="animation-delay: 2.4s"/>
+    <rect class="grid-pixel" x="375" y="0" width="10" height="10" rx="1" style="animation-delay: 2.5s"/>
+    <rect class="grid-pixel" x="390" y="0" width="10" height="10" rx="1" style="animation-delay: 2.6s"/>
+    <rect class="grid-pixel" x="405" y="0" width="10" height="10" rx="1" style="animation-delay: 2.7s"/>
+    <rect class="grid-pixel" x="420" y="0" width="10" height="10" rx="1" style="animation-delay: 2.8s"/>
+    <rect class="grid-pixel" x="435" y="0" width="10" height="10" rx="1" style="animation-delay: 2.9s"/>
+    <rect class="grid-pixel" x="450" y="0" width="10" height="10" rx="1" style="animation-delay: 3s"/>
+    <rect class="grid-pixel" x="465" y="0" width="10" height="10" rx="1" style="animation-delay: 3.1s"/>
+    <rect class="grid-pixel" x="480" y="0" width="10" height="10" rx="1" style="animation-delay: 3.2s"/>
+    <rect class="grid-pixel" x="495" y="0" width="10" height="10" rx="1" style="animation-delay: 3.3s"/>
+    <rect class="grid-pixel" x="510" y="0" width="10" height="10" rx="1" style="animation-delay: 3.4s"/>
+    <rect class="grid-pixel" x="525" y="0" width="10" height="10" rx="1" style="animation-delay: 3.5s"/>
+    <rect class="grid-pixel" x="540" y="0" width="10" height="10" rx="1" style="animation-delay: 3.6s"/>
+    <rect class="grid-pixel" x="555" y="0" width="10" height="10" rx="1" style="animation-delay: 3.7s"/>
+    <rect class="grid-pixel" x="570" y="0" width="10" height="10" rx="1" style="animation-delay: 3.8s"/>
+    <rect class="grid-pixel" x="585" y="0" width="10" height="10" rx="1" style="animation-delay: 3.9s"/>
+  </g>
+  
+  <!-- Second row of pixels -->
+  <g transform="translate(165, 355)">
+    <rect class="grid-pixel" x="0" y="0" width="10" height="10" rx="1" style="animation-delay: 0.5s"/>
+    <rect class="grid-pixel" x="15" y="0" width="10" height="10" rx="1" style="animation-delay: 0.6s"/>
+    <rect class="grid-pixel" x="30" y="0" width="10" height="10" rx="1" style="animation-delay: 0.7s"/>
+    <rect class="grid-pixel" x="45" y="0" width="10" height="10" rx="1" style="animation-delay: 0.8s"/>
+    <rect class="grid-pixel" x="60" y="0" width="10" height="10" rx="1" style="animation-delay: 0.9s"/>
+    <rect class="grid-pixel" x="75" y="0" width="10" height="10" rx="1" style="animation-delay: 1s"/>
+    <rect class="grid-pixel" x="90" y="0" width="10" height="10" rx="1" style="animation-delay: 1.1s"/>
+    <rect class="grid-pixel" x="105" y="0" width="10" height="10" rx="1" style="animation-delay: 1.2s"/>
+    <rect class="grid-pixel" x="120" y="0" width="10" height="10" rx="1" style="animation-delay: 1.3s"/>
+    <rect class="grid-pixel" x="135" y="0" width="10" height="10" rx="1" style="animation-delay: 1.4s"/>
+    <rect class="grid-pixel" x="150" y="0" width="10" height="10" rx="1" style="animation-delay: 1.5s"/>
+    <rect class="grid-pixel" x="165" y="0" width="10" height="10" rx="1" style="animation-delay: 1.6s"/>
+    <rect class="grid-pixel" x="180" y="0" width="10" height="10" rx="1" style="animation-delay: 1.7s"/>
+    <rect class="grid-pixel" x="195" y="0" width="10" height="10" rx="1" style="animation-delay: 1.8s"/>
+    <rect class="grid-pixel" x="210" y="0" width="10" height="10" rx="1" style="animation-delay: 1.9s"/>
+    <rect class="grid-pixel" x="225" y="0" width="10" height="10" rx="1" style="animation-delay: 2s"/>
+    <rect class="grid-pixel" x="240" y="0" width="10" height="10" rx="1" style="animation-delay: 2.1s"/>
+    <rect class="grid-pixel" x="255" y="0" width="10" height="10" rx="1" style="animation-delay: 2.2s"/>
+    <rect class="grid-pixel" x="270" y="0" width="10" height="10" rx="1" style="animation-delay: 2.3s"/>
+    <rect class="grid-pixel" x="285" y="0" width="10" height="10" rx="1" style="animation-delay: 2.4s"/>
+    <rect class="grid-pixel" x="300" y="0" width="10" height="10" rx="1" style="animation-delay: 2.5s"/>
+    <rect class="grid-pixel" x="315" y="0" width="10" height="10" rx="1" style="animation-delay: 2.6s"/>
+    <rect class="grid-pixel" x="330" y="0" width="10" height="10" rx="1" style="animation-delay: 2.7s"/>
+    <rect class="grid-pixel" x="345" y="0" width="10" height="10" rx="1" style="animation-delay: 2.8s"/>
+    <rect class="grid-pixel" x="360" y="0" width="10" height="10" rx="1" style="animation-delay: 2.9s"/>
+    <rect class="grid-pixel" x="375" y="0" width="10" height="10" rx="1" style="animation-delay: 3s"/>
+    <rect class="grid-pixel" x="390" y="0" width="10" height="10" rx="1" style="animation-delay: 3.1s"/>
+    <rect class="grid-pixel" x="405" y="0" width="10" height="10" rx="1" style="animation-delay: 3.2s"/>
+    <rect class="grid-pixel" x="420" y="0" width="10" height="10" rx="1" style="animation-delay: 3.3s"/>
+    <rect class="grid-pixel" x="435" y="0" width="10" height="10" rx="1" style="animation-delay: 3.4s"/>
+    <rect class="grid-pixel" x="450" y="0" width="10" height="10" rx="1" style="animation-delay: 3.5s"/>
+    <rect class="grid-pixel" x="465" y="0" width="10" height="10" rx="1" style="animation-delay: 3.6s"/>
+    <rect class="grid-pixel" x="480" y="0" width="10" height="10" rx="1" style="animation-delay: 3.7s"/>
+    <rect class="grid-pixel" x="495" y="0" width="10" height="10" rx="1" style="animation-delay: 3.8s"/>
+    <rect class="grid-pixel" x="510" y="0" width="10" height="10" rx="1" style="animation-delay: 3.9s"/>
+    <rect class="grid-pixel" x="525" y="0" width="10" height="10" rx="1" style="animation-delay: 4s"/>
+    <rect class="grid-pixel" x="540" y="0" width="10" height="10" rx="1" style="animation-delay: 4.1s"/>
+    <rect class="grid-pixel" x="555" y="0" width="10" height="10" rx="1" style="animation-delay: 4.2s"/>
+  </g>
+</svg>
