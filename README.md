@@ -1,16 +1,37 @@
-## Hi there 👋
+<!-- GitHub Profile Banner - Automatic Dark/Light Mode -->
+<picture>
+  <source 
+    media="(prefers-color-scheme: dark)" 
+    srcset="https://raw.githubusercontent.com/aneleldho06/aneleldho06/main/banner.svg"
+  />
+  <source 
+    media="(prefers-color-scheme: light)" 
+    srcset="https://raw.githubusercontent.com/aneleldho06/aneleldho06/main/banner.svg"
+  />
+  <img 
+    alt="ANEL ELDHO - Learner, Explorer, Builder" 
+    src="https://raw.githubusercontent.com/aneleldho06/aneleldho06/main/banner.svg"
+    width="100%"
+  />
+</picture>
 
-<!--
-**aneleldho06/aneleldho06** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+<!-- 
+SETUP INSTRUCTIONS:
+==================
+1. Save the SVG code as "banner.svg" in your profile repository (aneleldho06/aneleldho06)
+2. The SVG automatically switches between dark/light themes based on user's system preference
+3. Paste this snippet at the top of your README.md
 
-Here are some ideas to get you started:
+IMPORTANT NOTES:
+===============
+• GitHub sanitizes SVGs - some features may not work:
+  - JavaScript is completely stripped
+  - External resources (fonts, images) may be blocked
+  - Some CSS animations work, but complex ones may not
+  
+• The <picture> element with <source> allows GitHub to serve the right version
+• For best results, host the SVG in your profile repository
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
+ALTERNATIVE: Direct img tag (simpler, same result with media query in SVG)
+<img src="https://raw.githubusercontent.com/aneleldho06/aneleldho06/main/banner.svg" width="100%" alt="ANEL ELDHO Banner" />
 -->
